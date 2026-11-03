@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172b4d">
+  <meta name="description" content="Plan college classes, record lecture notes and track hostel work.">
+  <title>My Daily Class Tracker</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="header">
+    <div><h1>My Daily Class Tracker</h1><p>Plan your classes. Remember your work.</p></div>
+    <div id="todayLabel" class="today"></div>
+  </header>
+  <nav class="nav">
+    <button class="nav-btn active" data-page="dashboard">Dashboard</button>
+    <button class="nav-btn" data-page="timetable">Weekly timetable</button>
+  </nav>
+  <main>
+    <section id="dashboard" class="page active">
+      <div class="welcome"><h2>Welcome back!</h2><p>Keep track of what you learn in class and what you need to finish in the hostel.</p></div>
+      <div class="date-row"><label for="selectedDate">Choose a college day:</label><input type="date" id="selectedDate"></div>
+      <div class="stats">
+        <article class="stat"><strong id="classCount">0</strong><span>Classes</span></article>
+        <article class="stat"><strong id="taskCount">0</strong><span>Hostel tasks</span></article>
+        <article class="stat"><strong id="completedCount">0</strong><span>Tasks completed</span></article>
+      </div>
+      <div class="section-title"><div><h2 id="dayHeading">Today's classes</h2><p class="muted">Add as many or as few classes as you have.</p></div><button id="addClassBtn" class="primary">+ Add class</button></div>
+      <div id="classList"></div>
+      <div id="emptyMessage" class="empty" hidden>No classes added for this date yet.</div>
+    </section>
+    <section id="timetable" class="page">
+      <h2>Weekly timetable</h2><p class="muted">Monday to Friday. Select a day to open its class notes.</p>
+      <div id="weeklySchedule" class="weekly-grid"></div>
+    </section>
+  </main>
+  <footer>My Daily Class Tracker</footer>
+
+  <dialog id="classDialog">
+    <form id="classForm" method="dialog">
+      <div class="dialog-head"><h2>Add a class</h2><button type="button" id="closeDialog" class="x-btn" aria-label="Close">×</button></div>
+      <label for="subject">Subject name</label><input id="subject" required maxlength="80" placeholder="e.g. Mathematics">
+      <label for="teacher">Teacher name (optional)</label><input id="teacher" maxlength="80" placeholder="e.g. Mr Kumar">
+      <label for="classTime">Class time</label><input id="classTime" type="time" required>
+      <div class="dialog-actions"><button type="button" id="cancelDialog" class="secondary">Cancel</button><button type="submit" class="primary">Save class</button></div>
+    </form>
+  </dialog>
+  <script src="./script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .catch(error => console.error("Service worker registration failed:", error));
+      });
+    }
+  </script>
+</body>
+</html>
